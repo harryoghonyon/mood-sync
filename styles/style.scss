@@ -1,0 +1,79 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@font-face {
+    font-family: Gelcia;
+    src: url(../fonts/Fontspring-DEMO-gelica-medium.woff);
+}
+@font-face {
+    font-family: Open Sauce Mid;
+    src: url(../fonts/OpenSauceOne-Medium.woff);
+}
+@font-face {
+    font-family: Open Sauce SB;
+    src: url(../fonts/OpenSauceOne-SemiBold.woff);
+}
+
+$body-color: #0D0D0D;
+$body-font-mid: Open Sauce Mid;
+$body-font-sb: Open Sauce SB;
+$body-font-style: Gelcia;
+$body-font-color: #E7DED1;
+$body-font-size: 1rem;
+$body-font-mid-size: 1.375rem;
+$body-font-lt-space: -0.05rem;
+$body-font-sb-lt-space: -0.125rem;
+
+
+
+body {
+    background-color: $body-color;
+    font-family: $body-font-mid, $body-font-sb, sans-serif;
+}
+
+.wish-txt {
+    font-family: $body-font-style;
+    color: $body-font-color;
+    letter-spacing: -0.05rem;
+    font-size: $body-font-size;
+}
+
+.greet-con {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    align-items: center;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
