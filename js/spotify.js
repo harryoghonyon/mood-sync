@@ -1,10 +1,24 @@
+const global = {
+  currentPage: window.location.pathname,
+};
+
+const showLoader = () => {
+  document.querySelector(".loader").classList.add("show"); // Use "." for class selector
+}
+
+const hideLoader = () => {
+  document.querySelector(".loader").classList.remove("show"); // Use "." for class selector
+}  
+
 const fetchFromServer = async (type) => {
+    showLoader()
     try {
       const response = await fetch(`http://localhost:3000/data?type=${type}`); // Replace the URL with the actual URL of your Node.js server
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      hideLoader();
       renderTrack(data);
       // Use the data in your frontend as needed
     } catch (error) {
@@ -13,8 +27,6 @@ const fetchFromServer = async (type) => {
   };
   
   // Call the function to fetch data from the server
-  fetchFromServer();
-  
   const renderTrack = (data) => {
     const artists = data.track.artists.map((artist) => artist.name).join(", ");
     const musicCoverImage = data.track.album.images.find(
@@ -22,18 +34,31 @@ const fetchFromServer = async (type) => {
     ).url;
     const songName = data.track.name;
     songName[0].toUpperCase() + songName.slice(1);
+    
+    const overlayDiv = document.createElement('div');
+    overlayDiv.style.backgroundImage = `url(${musicCoverImage})`;
+    overlayDiv.style.backgroundSize = "cover";
+    overlayDiv.style.backgroundPosition = "center";
+    overlayDiv.style.backgroundRepeat = "no-repeat";
+    overlayDiv.style.height = "100vh";
+    overlayDiv.style.width = "100vw";
+    overlayDiv.style.position = "absolute";
+    overlayDiv.style.top = "0";
+    overlayDiv.style.left = "0";
+    overlayDiv.style.zIndex = "-1";
+    overlayDiv.style.opacity = "0.1";
   
     const trackContainer = document.createElement("div");
     trackContainer.innerHTML = `
-        <img src="${musicCoverImage}" alt="Music Cover Image">
-        <p>${songName}</p>
-        <p>${artists}</p>
-        <button class="preview-button">Preview</button>
-      `;
-  
+      <img src="${musicCoverImage}" alt="Music Cover Image">
+      <p class="song-name">${songName}</p>
+      <p class="artist-name">${artists}</p>
+      <button class="preview-button">Preview</button>
+    `;
+    
     const previewButton = trackContainer.querySelector(".preview-button");
     const audio = new Audio(data.track.preview_url);
-  
+    
     previewButton.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
@@ -43,64 +68,51 @@ const fetchFromServer = async (type) => {
         previewButton.textContent = "Preview";
       }
     });
-  
+    
     audio.addEventListener("ended", () => {
       previewButton.textContent = "Preview";
     });
-  
-    // document.body.style.backgroundImage = `url(${musicCoverImage})`;
-    // document.body.style.backgroundSize = "cover";
-    // document.body.style.backgroundRepeat = "no-repeat";
-    // document.body.style.backgroundPosition = "center";
-  
+    
+    document.body.appendChild(overlayDiv); // Append the overlay div first
     document.body.appendChild(trackContainer);
     document.querySelector("#song-container").appendChild(trackContainer);
   };
   
-  const liElements = document.querySelectorAll("li");
   
-  liElements.forEach((li) => {
-    li.addEventListener("click", () => {
-      const type = li.dataset.type;
+  const moodOpts = document.querySelectorAll(".mood-opt");
+
+  moodOpts.forEach((mood) => {
+    mood.addEventListener("click", () => {
+      const type = mood.dataset.type; // Use mood.dataset.type instead of li.dataset.type
       fetchFromServer(type);
     });
-  });
+  });  
 
-//   const selectedOption = document.querySelector('.selected-option');
-//   const optionsCon = document.querySelector('.options-con');
-//   const moodCon = document.querySelector('.mood-con');
-  
-//   let optionsList = [{label:'Give me whatever I\'ll take it',value:"chill"}, {label:"I need a banger afro track",value:"afro"}, {label:"My soul needs to relax",value:"soothing"}, {label:"I need a hard bar (rap)",value:"bars"}];
-//   let selected = optionsList[0];
+const gettingMessages = document.querySelectorAll(".getting-mssg");
+let currentIndex = 0;
 
-//   const handleSelected = () => selectedOption.innerHTML = selected.label;
+const displayNextMessage = () => {
+  gettingMessages[currentIndex].classList.remove("visible");
 
-//   const handleOption = () => {
-//     handleSelected()
+  currentIndex = (currentIndex + 1) % gettingMessages.length;
 
-//     const options = optionsList.filter(option => option.value !== selected.value);
+  gettingMessages[currentIndex].classList.add("visible");
+}
 
-//     let temp = "";
-//     for (let index = 0; index < options.length; index++) {
-//       const option = options[index];
-//       temp += `<div class="mood-option" data-option='${JSON.stringify(option)}'>${option.label}</div>`;
-//     }
-//     optionsCon.innerHTML = temp;
+// Initial display
+gettingMessages[currentIndex].classList.add("visible");
 
-//   };
+// Display the next message every 5 seconds
+const interval = setInterval(displayNextMessage, 5000);
 
-//   handleOption();
+const init = () => {
+  switch (global.pathname) {
+    case "/track.html":
+      fetchFromServer();
+      renderTrack();
+      displayNextMessage();
+      break; // Don't forget to add the "break" statement to exit the switch case
+  }
+};
 
-//   selectedOption.addEventListener("click", () => {
-//     optionsCon.classList.toggle("open");
-//     moodCon.classList.toggle("open");
-//   })
-
-//   document.addEventListener("click", e => {
-//     if(e.target.classList.contains("mood-option")) {
-//         selected = JSON.parse(e.target.getAttribute("data-option"));
-//         handleOption()
-//         optionsCon.classList.remove("open")
-//         moodCon.classList.remove("open")
-//     }
-// })
+document.addEventListener('DOMContentLoaded', init);

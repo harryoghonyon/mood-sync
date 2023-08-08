@@ -60,6 +60,13 @@ body {
     font-family: $body-font-mid, $body-font-sb, sans-serif;
 }
 
+h1 {
+    font-size: 20px;
+    font-family: sans-serif;
+    letter-spacing: $body-font-sb-lt-space;
+    color: $body-font-color;
+}
+
 .wish-txt {
     font-family: sans-serif;
     color: $body-font-color;
@@ -79,7 +86,7 @@ body {
 }
 
 
-h1 {
+mood-ques {
     font-family: sans-serif;
     font-size: $body-font-mid-size;
     color: $body-font-color;
@@ -193,12 +200,45 @@ h1 {
     right: 0;
 }
 
-// Loader5
+.getting-txt {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: $body-font-color;
+    font-weight: 700;
+    letter-spacing: $body-font-sb-lt-space;
+}
+
+.getting-mssg {
+    color: $body-font-color;
+    font-size: $body-font-size;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+  
+.getting-mssg.visible {
+    display: block;
+    opacity: 1;
+}
+  
+
 :root {
     --loader5Size: 10px;
-    --loader5Scale: 2.5rem;
+    --loader5Scale: 20px;
     --loader5Animation: 2s;
-  }
+    --color1: #E7DED1;
+  }  
+
+.loader {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
   
   .loader5 {
     color: var(--color1);
@@ -248,4 +288,37 @@ h1 {
       }
     }
   }
+
+.song-container {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+.preview-button {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #FFF;
+}
+
+.song-name {
+    font-family: sans-serif;
+    font-size: 20px;
+    color: $body-font-color;
+    font-weight: 700;
+    letter-spacing: $body-font-sb-lt-space;
+}
+
+.song-name {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: $body-font-color;
+    letter-spacing: $body-font-sb-lt-space;
+}
+
   
