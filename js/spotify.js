@@ -65,4 +65,42 @@ const fetchFromServer = async (type) => {
       fetchFromServer(type);
     });
   });
+
+//   const selectedOption = document.querySelector('.selected-option');
+//   const optionsCon = document.querySelector('.options-con');
+//   const moodCon = document.querySelector('.mood-con');
   
+//   let optionsList = [{label:'Give me whatever I\'ll take it',value:"chill"}, {label:"I need a banger afro track",value:"afro"}, {label:"My soul needs to relax",value:"soothing"}, {label:"I need a hard bar (rap)",value:"bars"}];
+//   let selected = optionsList[0];
+
+//   const handleSelected = () => selectedOption.innerHTML = selected.label;
+
+//   const handleOption = () => {
+//     handleSelected()
+
+//     const options = optionsList.filter(option => option.value !== selected.value);
+
+//     let temp = "";
+//     for (let index = 0; index < options.length; index++) {
+//       const option = options[index];
+//       temp += `<div class="mood-option" data-option='${JSON.stringify(option)}'>${option.label}</div>`;
+//     }
+//     optionsCon.innerHTML = temp;
+
+//   };
+
+//   handleOption();
+
+//   selectedOption.addEventListener("click", () => {
+//     optionsCon.classList.toggle("open");
+//     moodCon.classList.toggle("open");
+//   })
+
+//   document.addEventListener("click", e => {
+//     if(e.target.classList.contains("mood-option")) {
+//         selected = JSON.parse(e.target.getAttribute("data-option"));
+//         handleOption()
+//         optionsCon.classList.remove("open")
+//         moodCon.classList.remove("open")
+//     }
+// })
