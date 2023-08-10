@@ -106,3 +106,5 @@ const getPlayListTracks = async (type) => {
     return error?.response?.data;
   }
 };
+
+const getTrack = () => {};

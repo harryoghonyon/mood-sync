@@ -8,8 +8,17 @@
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -17,16 +26,20 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: "";
   content: none;
 }
@@ -38,18 +51,18 @@ table {
 
 @font-face {
   font-family: Gelcia;
-  src: url(../fonts/Fontspring-DEMO-gelica-medium.otf);
+  src: url(../assets/fonts/Fontspring-DEMO-gelica-medium.otf);
 }
 @font-face {
   font-family: Open Sauce Mid;
-  src: url(../fonts/OpenSauceOne-Medium.ttf);
+  src: url(../assets/fonts/OpenSauceOne-Medium.ttf);
 }
 @font-face {
   font-family: Open Sauce SB;
-  src: url(../fonts/OpenSauceOne-SemiBold.ttf);
+  src: url(../assets/fonts/OpenSauceOne-SemiBold.ttf);
 }
 body {
-  background-color: #0D0D0D;
+  background-color: #0d0d0d;
   font-family: Open Sauce Mid, Open Sauce SB, sans-serif;
 }
 
@@ -57,20 +70,58 @@ h1 {
   font-size: 20px;
   font-family: sans-serif;
   letter-spacing: -0.0625rem;
-  color: #E7DED1;
+  color: #e7ded1;
+}
+
+.out-wish-txt {
+  font-family: Gelcia;
+  color: #e7ded1;
+  letter-spacing: -0.05rem;
+  font-size: 1rem;
+}
+
+.home-wish-txt {
+  font-family: Gelcia;
+  color: #e7ded1;
+  letter-spacing: -0.05rem;
+  font-size: 1rem;
+}
+
+.main-wish-txt {
+  font-family: Gelcia;
+  color: #e7ded1;
+  letter-spacing: -0.05rem;
+  font-size: 1rem;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.main-wish-txt.visible {
+  display: inline-block;
+  opacity: 1;
 }
 
 .wish-txt {
-  font-family: sans-serif;
-  color: #E7DED1;
+  font-family: Gelcia;
+  color: #e7ded1;
   letter-spacing: -0.05rem;
   font-size: 1rem;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.wish-txt.visible {
+  display: inline-block;
+  opacity: 1;
 }
 
 .greet-con {
   display: flex;
   flex-direction: row;
   gap: 0.25rem;
+  align-items: center;
   position: absolute;
   top: 5%;
   left: 50%;
@@ -80,7 +131,7 @@ h1 {
 mood-ques {
   font-family: sans-serif;
   font-size: 1.375rem;
-  color: #E7DED1;
+  color: #e7ded1;
   letter-spacing: -0.0625rem;
 }
 
@@ -88,7 +139,7 @@ mood-ques {
   margin-top: 1.5rem;
   padding: 1.125rem 1.125rem;
   border-radius: 0.75rem;
-  border: 0.0938rem solid #2E2E2E;
+  border: 0.0938rem solid #2e2e2e;
   background: #202020;
 }
 
@@ -114,7 +165,7 @@ mood-ques {
 }
 
 .mood-option {
-  color: #E7DED1;
+  color: #e7ded1;
   font-family: Open Sauce Sans;
   font-size: 0.8125rem;
   letter-spacing: -0.05rem;
@@ -122,7 +173,7 @@ mood-ques {
 }
 
 .selected-option {
-  color: #E7DED1;
+  color: #e7ded1;
   font-family: Open Sauce Sans;
   font-size: 0.8125rem;
   letter-spacing: -0.05rem;
@@ -132,8 +183,9 @@ mood-ques {
   padding: 0.625rem 1.25rem;
 }
 
-.mood-option:hover, .mood-con.open .selected-option:hover {
-  background-color: #2E2E2E;
+.mood-option:hover,
+.mood-con.open .selected-option:hover {
+  background-color: #2e2e2e;
 }
 
 .mood-opt {
@@ -142,11 +194,13 @@ mood-ques {
   justify-content: center;
   align-items: center;
   border-radius: 0.75rem;
-  border: 0.0938rem solid #2E2E2E;
+  border: 0.0938rem solid #2e2e2e;
   background: #202020;
-  color: #E7DED1;
+  color: #e7ded1;
   font-size: 1rem;
   cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
 }
 @media (min-width: 728px) {
   .mood-opt {
@@ -155,8 +209,8 @@ mood-ques {
 }
 
 .mood-opt:hover {
-  border: 1.5px solid #6B6B6B;
-  background-color: #2E2E2E;
+  border: 1.5px solid #6b6b6b;
+  background-color: #2e2e2e;
 }
 
 .mood-opt-con {
@@ -167,8 +221,8 @@ mood-ques {
 }
 
 .footer-link {
-  color: #E7DED1;
-  font-family: Open Sauce Sans;
+  color: #e7ded1;
+  font-family: Open Sauce Mid;
   font-size: 0.8125rem;
   letter-spacing: -0.05rem;
   text-decoration-line: underline;
@@ -196,14 +250,15 @@ mood-ques {
 .getting-txt {
   font-family: sans-serif;
   font-size: 30px;
-  color: #E7DED1;
+  color: #e7ded1;
   font-weight: 700;
   letter-spacing: -0.0625rem;
 }
 
 .getting-mssg {
-  color: #E7DED1;
+  color: #e7ded1;
   font-size: 1rem;
+  font-family: Open Sauce Mid;
   display: none;
   opacity: 0;
   transition: opacity 0.5s;
@@ -218,14 +273,30 @@ mood-ques {
   --loader5Size: 10px;
   --loader5Scale: 20px;
   --loader5Animation: 2s;
-  --color1: #E7DED1;
+  --color1: #e7ded1;
 }
 
-.loader {
+#loader-con {
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.blur-effect {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  backdrop-filter: blur(80px);
+  background: rgba(0, 0, 0, 0.5019607843);
+}
+
+.loader {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,34 +342,47 @@ mood-ques {
   }
 }
 
-.song-container {
+.track-contianer {
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .preview-button {
   padding: 10px 12px;
-  border-radius: 10px;
-  border: 1.5px solid #FFF;
+  border-radius: 16px;
+  border: 1.5px solid #e7ded1;
+  text-decoration: none;
+  color: #e7ded1;
+  cursor: pointer;
+  font-family: Open Sauce Mid;
+  transition: 0.3s;
 }
 
 .song-name {
-  font-family: sans-serif;
   font-size: 20px;
-  color: #E7DED1;
+  color: #e7ded1;
   font-weight: 700;
   letter-spacing: -0.0625rem;
+  text-align: center;
+  font-family: Open Sauce SB;
+  text-align: center;
 }
 
-.song-name {
-  font-family: sans-serif;
+.artist-name {
   font-size: 16px;
-  color: #E7DED1;
+  color: #e7ded1;
   letter-spacing: -0.0625rem;
+  font-family: Open Sauce SB;
+  text-align: center;
+}
+
+.music-cover {
+  width: 250px;
+  border-radius: 7px;
 }/*# sourceMappingURL=style.css.map */

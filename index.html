@@ -1,41 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mood Sync</title>
-    <link rel="stylesheet" href="/styles/style.css">
-</head>
-<body>
-  <div class="greet-con">
-    <span class="wish-txt">Stay</span>
-    <span class="wish-txt">Blessed</span>
-    <img src="/assets/img/heart-small.svg" alt="">
-  </div>
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body>
+    <div class="greet-con">
+      <span class="home-wish-txt">Stay</span>
+      <div class="bless-con">
+        <span class="main-wish-txt">Blessed</span>
+        <span class="main-wish-txt">Cool</span>
+        <span class="main-wish-txt">Calm</span>
+        <span class="main-wish-txt">Wise</span>
+        <span class="main-wish-txt">Fresh</span>
+        <span class="main-wish-txt">Sleek</span>
+        <span class="main-wish-txt">Jiggy</span>
+        <span class="main-wish-txt">Code</span>
+        <span class="main-wish-txt">Bossy</span>
+        <span class="main-wish-txt">Trans</span>
+        <span class="main-wish-txt">Jonzing</span>
+      </div>
+      <img src="/assets/img/heart-small.svg" alt="" />
+    </div>
 
-  <div class="question-con">
-    <h1 class="mood-ques">What's your mood rn?</h1>
+    <div class="question-con">
+      <h1 class="mood-ques">What's your mood rn?</h1>
 
-    <!-- <div class="mood-con">
+      <!-- <div class="mood-con">
         <div class="selected-option"></div>
         <div class="options-con"></div>
     </div> -->
 
-    <div class="mood-opt-con">
-      <button class="mood-opt" data-type="soothing">Calm</button>
-      <button class="mood-opt" data-type="chill">Chill</button>
-      <button class="mood-opt" data-type="bars">Wavey</button>
-      <button class="mood-opt" data-type="afro">Jiggy</button>
+      <div class="mood-opt-con">
+        <a
+          href="/track.html?type=soothing"
+          class="mood-opt"
+          data-type="soothing"
+          >Calm</a
+        >
+        <a href="/track.html?type=chill" class="mood-opt" data-type="chill"
+          >Chill</a
+        >
+        <a href="/track.html?type=bars" class="mood-opt" data-type="bars"
+          >Wavey</a
+        >
+        <a href="/track.html?type=afro" class="mood-opt" data-type="afro"
+          >Jiggy</a
+        >
+      </div>
     </div>
-  </div>
 
-<div class="footer">
-    <div class="footer-wrap">
+    <div class="footer">
+      <div class="footer-wrap">
         <span class="footer-link">How this site works?</span>
         <span class="footer-link">harrytones.com</span>
+      </div>
     </div>
-</div>
 
-<script src="/js/spotify.js"></script>
-</body>
+    <script src="/js/main.js"></script>
+  </body>
 </html>

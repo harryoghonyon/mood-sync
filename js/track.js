@@ -1,6 +1,6 @@
-const global = {
-  currentPage: window.location.pathname,
-};
+const params = new URLSearchParams(window.location.search);
+const trackType = params.get("type");
+console.log(trackType);
 
 const showLoader = () => {
   const loader = document.querySelector("#loader-con");
@@ -21,11 +21,12 @@ const hideLoader = () => {
   }
 };
 
-const fetchFromServer = async (type) => {
-  console.log(type);
-  showLoader();
+const fetchFromServer = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/data?type=${type}`); // Replace the URL with the actual URL of your Node.js server
+    showLoader();
+    const response = await fetch(
+      `http://localhost:3000/data?type=${trackType}`
+    ); // Replace the URL with the actual URL of your Node.js server
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -37,6 +38,8 @@ const fetchFromServer = async (type) => {
     console.error("Error fetching data from the server:", error.message);
   }
 };
+
+fetchFromServer();
 
 // Call the function to fetch data from the server
 const renderTrack = (data) => {
@@ -58,18 +61,18 @@ const renderTrack = (data) => {
   overlayDiv.style.top = "0";
   overlayDiv.style.left = "0";
   overlayDiv.style.zIndex = "-1";
-  overlayDiv.style.opacity = "0.1";
 
   const trackContainer = document.createElement("div");
+  trackContainer.classList.add("track-contianer");
   trackContainer.innerHTML = `
-      <img src="${musicCoverImage}" alt="Music Cover Image">
-      <p class="song-name">${songName}</p>
-      <p class="artist-name">${artists}</p>
-      <button class="preview-button">Preview</button>
-    `;
+        <img class="music-cover"src="${musicCoverImage}" alt="Music Cover Image">
+        <p class="artist-name">${artists}</p>
+        <p class="song-name">${songName}</p>
+        <a class="preview-button">Preview</a>
+      `;
 
   const previewButton = trackContainer.querySelector(".preview-button");
-  const audio = new Audio(data.track.preview_url);
+  const audio = new Audio(data.track.preview_url || data.track.href);
 
   previewButton.addEventListener("click", () => {
     if (audio.paused) {
@@ -87,17 +90,7 @@ const renderTrack = (data) => {
 
   document.body.appendChild(overlayDiv); // Append the overlay div first
   document.body.appendChild(trackContainer);
-  document.querySelector("#song-container").appendChild(trackContainer);
 };
-
-const moodOpts = document.querySelectorAll(".mood-opt");
-
-moodOpts.forEach((mood) => {
-  mood.addEventListener("click", () => {
-    const type = mood.dataset.type;
-    fetchFromServer(type);
-  });
-});
 
 const gettingMessages = document.querySelectorAll(".getting-mssg");
 let currentIndex = 0;
@@ -116,16 +109,19 @@ gettingMessages[currentIndex].classList.add("visible");
 // Display the next message every 5 seconds
 const interval = setInterval(displayNextMessage, 5000);
 
-// const init = () => {
-//   switch (global.pathname) {
-//     case "/track.html":
-//       fetchFromServer();
-//       renderTrack();
-//       displayNextMessage();
-//       break; // Don't forget to add the "break" statement to exit the switch case
-//   }
-// };
+const wishTexts = document.querySelectorAll(".wish-txt");
+let currentWishIndex = 0;
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   init();
-// });
+const displayNextWish = () => {
+  wishTexts[currentWishIndex].classList.remove("visible");
+
+  currentWishIndex = (currentWishIndex + 1) % wishTexts.length;
+
+  wishTexts[currentWishIndex].classList.add("visible");
+};
+
+// Initial display
+wishTexts[currentWishIndex].classList.add("visible");
+
+// Display the next wish every 3 seconds
+const wishInterval = setInterval(displayNextWish, 3000);
