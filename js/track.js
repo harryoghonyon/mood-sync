@@ -65,7 +65,9 @@ const renderTrack = (data) => {
   const trackContainer = document.createElement("div");
   trackContainer.classList.add("track-contianer");
   trackContainer.innerHTML = `
-        <img class="music-cover"src="${musicCoverImage}" alt="Music Cover Image">
+       <a class="music-cover-link" href="${data.track.external_urls.spotify}" target="_blank">
+       <img class="music-cover" src="${musicCoverImage}" alt="Music Cover Image">
+       </a>
         <p class="artist-name">${artists}</p>
         <p class="song-name">${songName}</p>
         <a class="preview-button">Preview</a>
