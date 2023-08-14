@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const trackType = params.get("type");
+const baseUrl = "http://localhost:3000";
 console.log(trackType);
 
 const showLoader = () => {
@@ -24,9 +25,7 @@ const hideLoader = () => {
 const fetchFromServer = async () => {
   try {
     showLoader();
-    const response = await fetch(
-      `http://localhost:3000/data?type=${trackType}`
-    ); // Replace the URL with the actual URL of your Node.js server
+    const response = await fetch(`${baseUrl}/data?type=${trackType}`); // Replace the URL with the actual URL of your Node.js server
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -74,7 +73,13 @@ const renderTrack = (data) => {
       `;
 
   const previewButton = trackContainer.querySelector(".preview-button");
-  const audio = new Audio(data.track.preview_url || data.track.href);
+  // let url = data.track.preview_url;
+  // if (!url) {
+  //   console.log();
+  //   url = await getTrackUrl(data.track.href);
+  // }
+
+  const audio = new Audio(data.track.preview_url);
 
   previewButton.addEventListener("click", () => {
     if (audio.paused) {
@@ -127,3 +132,20 @@ wishTexts[currentWishIndex].classList.add("visible");
 
 // Display the next wish every 3 seconds
 const wishInterval = setInterval(displayNextWish, 3000);
+
+// const getTrackUrl = async (url) => {
+//   try {
+//     const response = await fetch(`http://localhost:3000/track`, {
+//       method: "POST",
+//       body: JSON.stringify({ url }),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//     console.log(response);
+//     return "";
+//   } catch (error) {
+//     console.log(error.message);
+//     return "";
+//   }
+// };

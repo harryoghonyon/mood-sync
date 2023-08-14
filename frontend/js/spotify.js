@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 const global = {
   currentPage: window.location.pathname,
 };
@@ -31,7 +33,7 @@ const fetchFromServer = async (type) => {
     }
     const data = await response.json();
     hideLoader();
-    renderTrack(data);
+    await renderTrack(data);
     // Use the data in your frontend as needed
   } catch (error) {
     console.error("Error fetching data from the server:", error.message);
@@ -39,7 +41,7 @@ const fetchFromServer = async (type) => {
 };
 
 // Call the function to fetch data from the server
-const renderTrack = (data) => {
+const renderTrack = async (data) => {
   const artists = data.track.artists.map((artist) => artist.name).join(", ");
   const musicCoverImage = data.track.album.images.find(
     (image) => image.height === 300
@@ -69,7 +71,13 @@ const renderTrack = (data) => {
     `;
 
   const previewButton = trackContainer.querySelector(".preview-button");
-  const audio = new Audio(data.track.preview_url);
+  let url = data.track.preview_url;
+  if (!url) {
+    console.log();
+    url = await getTrackUrl(data.track.href);
+  }
+
+  const audio = new Audio(url);
 
   previewButton.addEventListener("click", () => {
     if (audio.paused) {
@@ -115,6 +123,20 @@ gettingMessages[currentIndex].classList.add("visible");
 
 // Display the next message every 5 seconds
 const interval = setInterval(displayNextMessage, 5000);
+
+const getTrackUrl = async (url) => {
+  try {
+    const response = await fetch(`http://localhost:3000/track`, {
+      method: "POST",
+      body: JSON.stringify({ url }),
+    });
+    console.log(response);
+    return "";
+  } catch (error) {
+    console.log(error.message);
+    return "";
+  }
+};
 
 // const init = () => {
 //   switch (global.pathname) {

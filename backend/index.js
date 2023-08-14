@@ -8,20 +8,18 @@ const axios = require("axios");
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const user_id = process.env.SPOTIFY_USER_ID;
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // This is the rest api sending data to the frontend js
 app.get("/data", async (req, res) => {
   try {
     // Example: Fetching playlists from Spotify API
     const tracks = await getPlayListTracks(req.query.type);
-    console.log(tracks);
+    // console.log(tracks);
 
     return res.json(tracks);
   } catch (error) {
@@ -53,7 +51,7 @@ const getToken = async () => {
 const getPlayLists = async () => {
   try {
     const token = await getToken();
-    console.log(`This is the token: ${token}`);
+    // console.log(`This is the token: ${token}`);
 
     const result = await axios(
       `https://api.spotify.com/v1/users/${user_id}/playlists`,
@@ -65,7 +63,7 @@ const getPlayLists = async () => {
       }
     );
 
-    console.log("result.data.items ", result.data.items);
+    // console.log("result.data.items ", result.data.items);
 
     return result.data.items;
   } catch (error) {
@@ -97,8 +95,12 @@ const getPlayListTracks = async (type) => {
       }
     );
 
-    const rand = Math.floor(Math.random() * playlists.data.tracks.items.length);
-    return playlists.data.tracks.items[rand];
+    const filteredList = playlists.data.tracks.items.filter((data) => {
+      return data.track.preview_url !== null;
+    });
+    console.log("filteredList:", filteredList);
+    const rand = Math.floor(Math.random() * filteredList.length);
+    return filteredList[rand];
 
     // console.log("playlists ", playlists.data.tracks.items);
   } catch (error) {
@@ -107,4 +109,28 @@ const getPlayListTracks = async (type) => {
   }
 };
 
-const getTrack = () => {};
+// app.post("/track", async (req, res) => {
+//   try {
+//     // Example: Fetching playlists from Spotify API
+//     const token = await getToken();
+//     console.log(req.body);
+
+//     const result = await axios(req.body.url, {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+
+//     console.log("track ", result.data);
+
+//     return res.json(result.data);
+//   } catch (error) {
+//     console.error("Error fetching data from the server:", error.message);
+//     res.status(500).json({ error: "Failed to fetch data from Spotify API" });
+//   }
+// });
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
